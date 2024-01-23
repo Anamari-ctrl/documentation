@@ -1,5 +1,5 @@
 ========================
-File upload Widget
+Image upload Widget
 ========================
 
 Introduction
