@@ -1,0 +1,64 @@
+========================
+File upload Widget
+========================
+
+Introduction
+------------
+Welcome to the documentation for the "Image Upload" widget, the first in a series dedicated to image processing with Orange.
+This widget serves as a simple yet essential tool for uploading image datasets,
+laying the foundation for subsequent widgets designed to enhance and analyze image data in your Orange workflows.
+
+Widget icon
+-----------
+
+To include images, use the following format::
+
+   .. image:: _static/uploadImage.png
+      :alt: This icon will be used with this widget.
+
+
+
+Libraries used in this widget
+-----------------------------
+import numpy as np
+from Orange.data import Table
+from Orange.widgets import gui
+from orangewidget.widget import settings
+from Orange.widgets.settings import Setting
+from Orange.widgets.widget import OWWidget, Input, Output, Msg
+from AnyQt.QtWidgets import \
+    QStyle, QComboBox, QMessageBox, QGridLayout, QLabel, \
+    QLineEdit, QSizePolicy as Policy, QCompleter
+from AnyQt.QtCore import Qt, QTimer, QSize, QUrl, pyqtSignal
+from AnyQt.QtGui import QBrush
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QPushButton
+from PyQt5.QtGui import QIcon
+from PIL import Image
+
+- **Modular Workflows:** Orange facilitates the construction of data analysis pipelines through a visual interface where users can connect modular components, known as widgets.
+
+- **User-Friendly Interface:** With a focus on accessibility, Orange is designed to be user-friendly, making it suitable for both beginners and experienced data scientists.
+
+[Add more key features here.]
+
+Input and Output code snippet
+-----------------------------
+
+Include code snippets using the following format::
+
+   .. code-block:: python
+
+      # Your Python code here
+
+Conclusion
+-----------
+
+A concluding section summarizing the key points of the document.
+
+.. note::
+
+   Additional notes or important information can be included here.
+
+.. warning::
+
+   Highlight any warnings or important considerations here.

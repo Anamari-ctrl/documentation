@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Documentation for developing your first widgets!'s documentation!
+Welcome to Documentation for developing your first widgets!
 ============================================================================
 
 .. toctree::
@@ -11,6 +11,10 @@ Welcome to Documentation for developing your first widgets!'s documentation!
    :caption: Contents:
 
    introduction
+   aboutOrange
+   introductionToWidgets
+   firstWidget
+   secondWidget
 
 
 

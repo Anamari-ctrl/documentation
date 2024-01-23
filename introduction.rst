@@ -3,11 +3,17 @@ Introduction
 
 Hey there fellow developer!
 --------
+
+.. image:: _static/orange_illustration.png
+      :alt: Orange waiving!
+      :align: center
+
+
 Sit tight, and with enthusiasm, join my tutorial for making your first widgets.
 It provides an ideal opportunity to acquaint yourself with widget development.
+In this tutorial series we will develop different widgets for image processing.
 
-
-This marks my first project as a new associate in the biolab, hope it will help you start developing and break the ice.
+**This marks my first project as a new associate in the biolab, hope it will help you start developing and break the ice.**
 
 
 
