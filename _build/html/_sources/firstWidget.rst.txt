@@ -117,7 +117,7 @@ This is the code you will place inside your ``uploadFile(OWWidget)`` class, that
 
 .. code-block:: python
 
-   class uploadFile(OWWidget):
+   class FileUpload(OWWidget):
         name = "Upload image"
         description = "Upload image from local directory"
         icon = "icons/uploadImage.png"
@@ -278,7 +278,7 @@ Let's just check, what we have so far.
 
             if __name__ == "__main__":
                 from Orange.widgets.utils.widgetpreview import WidgetPreview  # since Orange 3.20.0
-                WidgetPreview(uploadFile).run()
+                WidgetPreview(FileUpload).run()
 
 Now run the file and you should see something similar to this:
 

@@ -1,29 +1,39 @@
 import numpy as np
+from Orange.data import Table
 from Orange.widgets import gui
 from orangewidget.widget import settings
 from Orange.widgets.settings import Setting
 from Orange.widgets.widget import OWWidget, Input, Output, Msg
-from AnyQt.QtWidgets import QLabel, QVBoxLayout, QWidget, QInputDialog, QFileDialog
+from AnyQt.QtWidgets import \
+    QStyle, QComboBox, QMessageBox, QGridLayout, QLabel, \
+    QLineEdit, QSizePolicy as Policy, QCompleter, QVBoxLayout
+from AnyQt.QtCore import Qt, QTimer, QSize, QUrl, pyqtSignal
+from AnyQt.QtGui import QBrush
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QPushButton
+from PyQt5.QtGui import QIcon
+from PIL import Image
 from PyQt5.QtGui import QImage, QPixmap
+
 
 class ImageWidget(QWidget):
     def __init__(self, image_array):
         super().__init__()
 
-        self.image_array = image_array
+        self.label = QLabel(self)
         self.init_ui()
 
+        # Set the initial image
+        self.update_image(image_array)
+
     def init_ui(self):
-        image = self.numpy_array_to_qimage(self.image_array)
-        pixmap = QPixmap.fromImage(image)
-
-        label = QLabel(self)
-        label.setPixmap(pixmap)
-
         layout = QVBoxLayout(self)
-        layout.addWidget(label)
-
+        layout.addWidget(self.label)
         self.setLayout(layout)
+
+    def update_image(self, new_image_array):
+        image = self.numpy_array_to_qimage(new_image_array)
+        pixmap = QPixmap.fromImage(image)
+        self.label.setPixmap(pixmap)
 
     def numpy_array_to_qimage(self, array):
         height, width, channel = array.shape
@@ -75,8 +85,7 @@ class ShowImage(OWWidget):
 
     @Inputs.image
     def show_image(self, image_array):
-        self.image_preview = ImageWidget(image_array)
-        gui.widgetBox(self.controlArea, "Image Preview").layout().addWidget(self.image_preview)
+        self.image_preview.update_image(image_array)
 
 if __name__ == "__main__":
     from Orange.widgets.utils.widgetpreview import WidgetPreview

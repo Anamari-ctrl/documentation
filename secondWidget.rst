@@ -170,20 +170,21 @@ and displays it within a vertical box layout.
         def __init__(self, image_array):
             super().__init__()
 
-            self.image_array = image_array
+            self.label = QLabel(self)
             self.init_ui()
 
+            # Set the initial image
+            self.update_image(image_array)
+
         def init_ui(self):
-            image = self.numpy_array_to_qimage(self.image_array)
-            pixmap = QPixmap.fromImage(image)
-
-            label = QLabel(self)
-            label.setPixmap(pixmap)
-
             layout = QVBoxLayout(self)
-            layout.addWidget(label)
-
+            layout.addWidget(self.label)
             self.setLayout(layout)
+
+        def update_image(self, new_image_array):
+            image = self.numpy_array_to_qimage(new_image_array)
+            pixmap = QPixmap.fromImage(image)
+            self.label.setPixmap(pixmap)
 
         def numpy_array_to_qimage(self, array):
             height, width, channel = array.shape
@@ -200,8 +201,7 @@ Handle loaded image file
 
     @Inputs.image
     def show_image(self, image_array):
-        self.image_preview = ImageWidget(image_array)
-        gui.widgetBox(self.controlArea, "Image Preview").layout().addWidget(self.image_preview)
+        self.image_preview.update_image(image_array)
 
 The last part of the code is adding image preview to our layout. Now we can run and test the code!
 

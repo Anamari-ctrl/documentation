@@ -75,6 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="secondWidget.html">Image Preview Widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirdWidget.html">Blend Images Widget</a></li>
 </ul>
 
         </div>
@@ -225,7 +226,7 @@ This section outlines key metadata attributes.</p>
 <section id="widget-attributes">
 <h3>Widget Attributes<a class="headerlink" href="#widget-attributes" title="Link to this heading"></a></h3>
 <p>This is the code you will place inside your <code class="docutils literal notranslate"><span class="pre">uploadFile(OWWidget)</span></code> class, that inherits from OWWidget.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">uploadFile</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FileUpload</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
      <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Upload image&quot;</span>
      <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Upload image from local directory&quot;</span>
      <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;icons/uploadImage.png&quot;</span>
@@ -371,7 +372,7 @@ We also add <cite>self.image</cite> as it will be used for storing the image lat
 <dl>
 <dt>⚠️ Before running, make sure you add this to the bottom of the code.</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>  <span class="c1"># since Orange 3.20.0</span>
-    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">uploadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">FileUpload</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>

@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Blend Images Widget" href="thirdWidget.html" />
+    <link rel="next" title="&lt;no title&gt;" href="secondWidgetUpdates.html" />
     <link rel="prev" title="Image Load Widget" href="firstWidget.html" /> 
 </head>
 
@@ -231,20 +231,21 @@ and displays it within a vertical box layout.</p>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_array</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_array</span> <span class="o">=</span> <span class="n">image_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_ui</span><span class="p">()</span>
 
+        <span class="c1"># Set the initial image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_array_to_qimage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_array</span><span class="p">)</span>
-        <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-        <span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
-
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_image_array</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_array_to_qimage</span><span class="p">(</span><span class="n">new_image_array</span><span class="p">)</span>
+        <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">numpy_array_to_qimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
         <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span>
@@ -258,8 +259,7 @@ and displays it within a vertical box layout.</p>
 <h2>Handle loaded image file<a class="headerlink" href="#handle-loaded-image-file" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@Inputs</span><span class="o">.</span><span class="n">image</span>
 <span class="k">def</span> <span class="nf">show_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_array</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span> <span class="o">=</span> <span class="n">ImageWidget</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
-    <span class="n">gui</span><span class="o">.</span><span class="n">widgetBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controlArea</span><span class="p">,</span> <span class="s2">&quot;Image Preview&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">update_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The last part of the code is adding image preview to our layout. Now we can run and test the code!</p>
@@ -309,7 +309,7 @@ bit more complex, but actually I had a lot more fun when I was creating them.</p
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="firstWidget.html" class="btn btn-neutral float-left" title="Image Load Widget" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="thirdWidget.html" class="btn btn-neutral float-right" title="Blend Images Widget" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="secondWidgetUpdates.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
