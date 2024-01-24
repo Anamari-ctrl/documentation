@@ -69,79 +69,33 @@ This is the code you will place inside your ``ShowImage(OWWidget)`` class, that 
 
 
 
-
-Attributes Explained - popravljeno je do tukaj
-==============================================
-
-- **Name Attribute**
-
-The `name` attribute represents the display name of the widget as it appears within the Orange3 canvas. Choose a name that describes the widget's functionality.
-
-- **Description Attribute**
-
-The `description` attribute provides a brief and clear description of what the widget does.
-
-- **Icon Attribute**
-
-The `icon` attribute specifies the path to the image file used as the widget's icon. Icons contribute to the visual identification of the widget in the toolbox.
-
-- **Priority Attribute**
-
-The `priority` attribute determines the order in which the widget appears within its assigned category in the Orange3 toolbox.
-
-- **Keywords Attribute**
-
-The `keywords` attribute consists of keywords that serve as quick review of the functionality.
-TODO: Sem izhajala iz tega, da recimo, izberemo res 5 kljucnih besed, ki opisejo kaj widget dela
-
-- **Category Attribute**
-
-The `category` attribute classifies the widget into a specific category within the toolbox.
-
 Registration with Orange
 ------------------------
 
 We run the ``orange-canvas`` command, after we should see this in the toolbox.
-Since we specified the category, our widgets will be placed in that category - so far we only have one widget. The first
+Since we specified the category, our widgets will be placed in that category - so far we have two widgets. The second
 widget in the category should be shown now.
 
-   .. image:: _static/category-documentation.png
-      :alt: This icon will be used with this widget.
+   .. image:: _static/category.png
+      :alt: This is our category.
       :align: center
 
-If you are new to Orange, you need to click on the widget and it will appear on the orange canvas, so we can start
-creating workflows with it. Now we see, that we declared Inputs and Outputs correctly because widget only has gray dots
-on the side - we can only connect to the Output.
+This widget looks a little different from the first widget. We see dots on both sides - which means we can connect
 
-   .. image:: _static/widgetOnTheCanvas.png
+   .. image:: _static/imagePreviewOnCanvas.png
       :alt: This icon will be used with this widget.
       :align: center
-
-Also, don't forget to check out, where is the location of other meta data information that we defined.
-
-.. tip::
-   💡 `Just go to the widget icon in the tool box and place cursor on it`
-
-.. note::
-   Do you find input, output declaration? And in the bottom left corner name and description?
-
 
 Declaring Inputs and Outputs
 ----------------------------
-After defining metadata, the next step is to declare Inputs and Outputs for the widget.
-This widget will be the first in the workflow, so it won't receive any input.
-TODO: Ker če zelis sliko prikazat/nekaj delati z njo jo je treba najprej nalozit
-Therefore, we focus on declaring the Output.
-In the following code snippet, we define an Output named "image," that will produce NumPy arrays as an output.
-This output is set as the default, this is important if we have multiple outputs.
-TODO: Ali je to pravilna razlaga? Ker ni nikjer napisano.
-The widget also has control over the summary. If the `auto_summary` attribute were set to True, Orange would automatically generate a summary.
-TODO: Ta auto_summary sem dodala, ker je meni metalo ven errorje, ce tega ni bilo definiranega.
 
 .. code-block:: python
 
-   class Outputs:
-        image = Output("image", np.ndarray, default=True, auto_summary=False)
+    class Inputs:
+        image = Input("image", np.ndarray, auto_summary=False)
+
+    class Outputs:
+        image = Output("image", np.ndarray, auto_summary=False)
 
 .. _widget-settings:
 
@@ -183,123 +137,112 @@ You can use them like this:
 
 Widget Initialization
 ---------------------
-`__init__` method in Python is used to initialize objects of a class - constructor.
-The task is to assign values, when an object of the class is created.
-We also add `self.image` as it will be used for storing the image later.
 
 .. code-block:: python
 
      def __init__(self):
         super().__init__()
-        self.image = None
+        self.image_preview = ImageWidget(np.zeros((1, 1, 3), dtype=np.uint8))
 
-In the `__init__` method we have layout definition, to which we add buttons.
+Here we create an instance of the ImageWidget class and initializing
+it with a small black image
+(1x1 pixels with three color channels) filled with zeros.
+This serves as an placeholder image for the image_preview widget.
 
 .. code-block:: python
 
-    layout = QGridLayout()
-    layout.setSpacing(4)
+     box = gui.widgetBox(self.controlArea, "")
+     box.layout().addWidget(self.image_preview)
 
-    self.load_button = QPushButton('Load File', self)
-    self.load_button.clicked.connect(self.browse_file)
-    layout.addWidget(self.load_button, 0, 0)
-
-Let's just check, what we have so far.
+ImageWidget class declaration
+-----------------------------
+ImageWidget class is designed to display images in a Qt-based GUI.
+The class takes a NumPy array as input, converts it to a QImage,
+and displays it within a vertical box layout.
 
 .. warning::
-    Before running, make sure you add this to the bottom of the code.
+   ⚠️ Place this class above Show Image class
+
+
+.. code-block:: python
+
+    class ImageWidget(QWidget):
+        def __init__(self, image_array):
+            super().__init__()
+
+            self.image_array = image_array
+            self.init_ui()
+
+        def init_ui(self):
+            image = self.numpy_array_to_qimage(self.image_array)
+            pixmap = QPixmap.fromImage(image)
+
+            label = QLabel(self)
+            label.setPixmap(pixmap)
+
+            layout = QVBoxLayout(self)
+            layout.addWidget(label)
+
+            self.setLayout(layout)
+
+        def numpy_array_to_qimage(self, array):
+            height, width, channel = array.shape
+            bytes_per_line = 3 * width
+            qimage = QImage(array.data, width, height, bytes_per_line, QImage.Format_RGB888)
+            return qimage
+
+
+
+Handle loaded image file
+------------------------
+
+.. code-block:: python
+
+    @Inputs.image
+    def show_image(self, image_array):
+        self.image_preview = ImageWidget(image_array)
+        gui.widgetBox(self.controlArea, "Image Preview").layout().addWidget(self.image_preview)
+
+The last part of the code is adding image preview to our layout. Now we can run and test the code!
+
+.. note::
+    📌 Decorator ``@Inputs.image``: handles incoming image data from the specified input signal
+
+.. warning::
+    ⚠️ Before running, make sure you add this to the bottom of the code.
         .. code-block:: python
 
             if __name__ == "__main__":
-                from Orange.widgets.utils.widgetpreview import WidgetPreview  # since Orange 3.20.0
-                WidgetPreview(uploadFile).run()
+                from Orange.widgets.utils.widgetpreview import WidgetPreview
 
-Now run the file and you should see something similar to this:
+                WidgetPreview(ShowImage).run()
 
-.. image:: _static/fileUpload1stStep.png
-      :alt: Box for uploading file.
-      :align: center
+                main_window = ShowImage()
+                main_window.show()
 
 
-Upload file from your file system
----------------------------------
-.. code-block:: python
+Our first workflow
+------------------
+Here we create our first workflow. First we use the file load widget and connect it to
+image preview where we can see the image.
 
-        def browse_file(self):
-        self.image, _ = QFileDialog.getOpenFileName(
-            self, 'Open File', '', 'Image Files (*.gif *.jpg *.jpeg *.png *.svg);;All Files (*)'
-        )
-        # TODO:Preverjanje ce je datoteka izbrana
-        msg = QMessageBox()
-        msg.setWindowTitle("File Upload")
-        msg.setText(f"Do you want to upload the file? {self.image}")
-        btn1 = QMessageBox.Yes
-        btn2 = QMessageBox.No
-        msg.setStandardButtons(btn1 | btn2)
-        msg.setDefaultButton(btn1)
-        msg.buttonClicked.connect(self.popup_clicked)
-        x = msg.exec_()
+.. image:: _static/workflow1.png
+    :alt: Workflow example.
+    :align: center
 
 
-Explanation:
-============
+Now the best part, we can finally check how our image preview looks!
 
-- The method uses `QFileDialog.getOpenFileName` to prompt the user to select a file. The selected file path is stored in the `self.image` attribute.
-
-- A message box (`QMessageBox`) is created to confirm whether the user wants to upload the selected file.
-
-- The message box displays the selected file path in the message text.
-
-- Two buttons, 'Yes' and 'No', are added to the message box, and the default button is set to 'Yes'.
-
-- The `buttonClicked` signal of the message box is connected to the `popup_clicked` method (explained below) .
-
-- The message box is executed, and the result is stored in variable `x`.
-
-How it should look:
-
-.. image:: _static/fileUpload2ndStep.png
-        :alt: Browse file dialog
-        :align: center
-
-File confirmation
------------------
-
-.. code-block:: python
-
-    def popup_clicked(self, i):
-        if i.text() == ("&Yes"):
-            img = np.array(Image.open(self.image))
-            Image.fromarray(img).save('uploadedFile.jpg')
-            self.Outputs.image.send(img)
-            self.close()
-
-Explanation:
-============
-
-- The method takes a parameter `i`, which represents the clicked button in the confirmation dialog.
-
-- It checks if the text of the clicked button is "&Yes," indicating the user's affirmative response.
-
-- If the user confirms, the method proceeds to read the selected image file (`self.image`), converts it to a NumPy array, and saves it as 'uploadedFile.jpg' using the Pillow library.
-
-- The processed image array is sent as output through `self.Outputs.image.send(img)`.
-
-- Finally, the widget is closed, concluding the file upload process.
-
-This is the window where we check if we selected the right file - it shows file path. When we check and we are sure, the
-right file is being uploaded we click Yes - which is already highlighted since we set it as a default button.
-
-.. image:: _static/uploadFileConfirmation.png
-        :alt: File confirmation popUp window
-        :align: center
+.. image:: _static/imagePreview.png
+    :alt: Image preview window.
+    :align: center
 
 
 Conclusion
 ----------
 
-So here we end the journey of creating the first widget together. If you are interested, I kindly invite you
-to proceed with this tutorial and create another widget with me.
+We are now ending the first half of the tutorial. I must warn you, the next two widgets are a
+bit more complex, but actually I had a lot more fun when I was creating them.
 
 .. seealso::
-   - :doc:`secondWidget`
+   - :doc:`thirdWidget`

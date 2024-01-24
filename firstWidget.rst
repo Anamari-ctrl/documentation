@@ -1,5 +1,5 @@
 ========================
-Image Upload Widget
+Image Load Widget
 ========================
 
 Introduction
@@ -168,20 +168,19 @@ The `category` attribute classifies the widget into a specific category within t
 Registration with Orange
 ------------------------
 
-We run the ``orange-canvas`` command, after we should see this in the toolbox.
+First we run the ``orange-canvas`` command, then we should see this in the toolbox.
 Since we specified the category, our widgets will be placed in that category - so far we only have one widget. The first
 widget in the category should be shown now.
 
-   .. image:: _static/category-documentation.png
+   .. image:: _static/category.png
       :alt: This icon will be used with this widget.
       :align: center
 
 If you are new to Orange, you need to click on the widget and it will appear on the orange canvas, so we can start
-creating workflows with it. Now we see, that we declared Inputs and Outputs correctly because widget only has gray dots
-on the side - we can only connect to the Output.
+creating workflows with it.
 
-   .. image:: _static/widgetOnTheCanvas.png
-      :alt: This icon will be used with this widget.
+   .. image:: _static/loadImageOnCanvas.png
+      :alt: Widget on the canvas.
       :align: center
 
 Also, don't forget to check out, where is the location of other meta data information that we defined.
@@ -369,4 +368,4 @@ So here we end the journey of creating the first widget together. If you are int
 to proceed with this tutorial and create another widget with me.
 
 .. seealso::
-   - :doc:`secondWidget`
+   - 🔍 :doc:`secondWidget`

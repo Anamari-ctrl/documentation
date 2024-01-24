@@ -15,6 +15,7 @@ Welcome to Documentation for developing your first widgets!
    introductionToWidgets
    firstWidget
    secondWidget
+   thirdWidget
 
 
 
