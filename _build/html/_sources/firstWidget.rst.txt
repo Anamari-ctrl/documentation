@@ -1,13 +1,13 @@
 ========================
-File upload Widget
+Image Upload Widget
 ========================
 
 Introduction
 ------------
-Let's start! Follow along, and at the end of the page, you will be a proud owner of the file upload widget.
+Let's start! Follow along, and at the end of the page, you will be a proud owner of the image upload widget.
 
 .. note::
-   Before you start, please make sure you have Orange installed. And some IDE to help you start developing (PyCharm, VSCode).
+    📌  Before you start, please make sure you have Orange installed. And some IDE to help you start developing (PyCharm, VSCode).
 
 
 Widget icon
@@ -126,16 +126,16 @@ This is the code you will place inside your ``uploadFile(OWWidget)`` class, that
         category = "Example - documentation"
 
 .. note::
-     Priorities impact the widget's position in the toolbox.
+      📌  Priorities impact the widget's position in the toolbox.
 
 .. tip::
-     Place the widget in an appropriate category using the `category` attribute.
+     💡 Place the widget in an appropriate category using the `category` attribute.
      In our case widgets will be placed in the documentation category.
      TODO: Lahko tudi preimenujem kategorijo
 
 
-.. warning::::
-   Icons specified in the `icon` attribute should be located in the correct path relative to the module where the widget is defined.
+.. warning::
+   ⚠️ Icons specified in the `icon` attribute should be located in the correct path relative to the module where the widget is defined.
 
 Attributes Explained
 ====================
@@ -168,15 +168,17 @@ The `category` attribute classifies the widget into a specific category within t
 Registration with Orange
 ------------------------
 
-We run the orange-canvas command, after we should see this in the toolbox.
-Since we specified the category, our widgets will be placed in that category - so far we only have one widget.
+We run the ``orange-canvas`` command, after we should see this in the toolbox.
+Since we specified the category, our widgets will be placed in that category - so far we only have one widget. The first
+widget in the category should be shown now.
 
-   .. image:: _static/ourCategory.png
+   .. image:: _static/category-documentation.png
       :alt: This icon will be used with this widget.
       :align: center
 
 If you are new to Orange, you need to click on the widget and it will appear on the orange canvas, so we can start
-creating workflows with it.
+creating workflows with it. Now we see, that we declared Inputs and Outputs correctly because widget only has gray dots
+on the side - we can only connect to the Output.
 
    .. image:: _static/widgetOnTheCanvas.png
       :alt: This icon will be used with this widget.
@@ -185,10 +187,10 @@ creating workflows with it.
 Also, don't forget to check out, where is the location of other meta data information that we defined.
 
 .. tip::
-   `Just go to the widget icon in the tool box and place cursor on it`
+   💡 `Just go to the widget icon in the tool box and place cursor on it`
 
 .. note::
-   Do you find input, output declaration? And in the bottom left corner name and description?
+    📌 Do you find input, output declaration? And in the bottom left corner name and description?
 
 
 Declaring Inputs and Outputs
@@ -272,7 +274,7 @@ In the `__init__` method we have layout definition, to which we add buttons.
 Let's just check, what we have so far.
 
 .. warning::
-    Before running, make sure you add this to the bottom of the code.
+    ⚠️ Before running, make sure you add this to the bottom of the code.
         .. code-block:: python
 
             if __name__ == "__main__":
@@ -286,7 +288,7 @@ Now run the file and you should see something similar to this:
       :align: center
 
 
-Upload file from your file system
+Upload image from your file system
 ---------------------------------
 .. code-block:: python
 
@@ -352,8 +354,8 @@ Explanation:
 
 - Finally, the widget is closed, concluding the file upload process.
 
-So when we run the `orange-canvas` command and pick our widget, we should see this
-message when uploading a file.
+This is the window where we check if we selected the right file - it shows file path. When we check and we are sure, the
+right file is being uploaded we click Yes - which is already highlighted since we set it as a default button.
 
 .. image:: _static/uploadFileConfirmation.png
         :alt: File confirmation popUp window

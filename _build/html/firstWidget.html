@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File upload Widget &mdash; Documentation for developing your first widgets! February 2024 documentation</title>
+  <title>Image Upload Widget &mdash; Documentation for developing your first widgets! February 2024 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Show File Widget" href="secondWidget.html" />
+    <link rel="next" title="Image Preview Widget" href="secondWidget.html" />
     <link rel="prev" title="Orange Widgets" href="introductionToWidgets.html" /> 
 </head>
 
@@ -49,7 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aboutOrange.html">About Orange</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introductionToWidgets.html">Orange Widgets</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">File upload Widget</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Image Upload Widget</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#widget-icon">Widget icon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#libraries-used-in-this-widget">Libraries used in this widget</a></li>
@@ -63,7 +63,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#widget-settings">Widget Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#classes-for-information-warning-and-error">Classes for Information, Warning and Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#widget-initialization">Widget Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#upload-file-from-your-file-system">Upload file from your file system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#upload-image-from-your-file-system">Upload image from your file system</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#explanation">Explanation:</a></li>
 </ul>
 </li>
@@ -74,7 +74,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="secondWidget.html">Show File Widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secondWidget.html">Image Preview Widget</a></li>
 </ul>
 
         </div>
@@ -91,7 +91,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">File upload Widget</li>
+      <li class="breadcrumb-item active">Image Upload Widget</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/firstWidget.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,20 +101,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="file-upload-widget">
-<h1>File upload Widget<a class="headerlink" href="#file-upload-widget" title="Link to this heading"></a></h1>
+  <section id="image-upload-widget">
+<h1>Image Upload Widget<a class="headerlink" href="#image-upload-widget" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>Let’s start! Follow along, and at the end of the page, you will be a proud owner of the file upload widget.</p>
+<p>Let’s start! Follow along, and at the end of the page, you will be a proud owner of the image upload widget.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before you start, please make sure you have Orange installed. And some IDE to help you start developing (PyCharm, VSCode).</p>
+<p>📌  Before you start, please make sure you have Orange installed. And some IDE to help you start developing (PyCharm, VSCode).</p>
 </div>
 </section>
 <section id="widget-icon">
 <h2>Widget icon<a class="headerlink" href="#widget-icon" title="Link to this heading"></a></h2>
 <blockquote>
-<div><img alt="This icon will be used with this widget." class="align-center" src="_static/uploadImage.png" />
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/uploadImage.png" />
 </div></blockquote>
 <p>We will use this icon to represent our Widget in the Orange Canvas.</p>
 </section>
@@ -236,13 +236,17 @@ This section outlines key metadata attributes.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Priorities impact the widget’s position in the toolbox.</p>
+<p>📌  Priorities impact the widget’s position in the toolbox.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Place the widget in an appropriate category using the <cite>category</cite> attribute.
+<p>💡 Place the widget in an appropriate category using the <cite>category</cite> attribute.
 In our case widgets will be placed in the documentation category.
 TODO: Lahko tudi preimenujem kategorijo</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>⚠️ Icons specified in the <cite>icon</cite> attribute should be located in the correct path relative to the module where the widget is defined.</p>
 </div>
 </section>
 <section id="attributes-explained">
@@ -276,24 +280,26 @@ TODO: Sem izhajala iz tega, da recimo, izberemo res 5 kljucnih besed, ki opisejo
 </section>
 <section id="registration-with-orange">
 <h2>Registration with Orange<a class="headerlink" href="#registration-with-orange" title="Link to this heading"></a></h2>
-<p>We run the orange-canvas command, after we should see this in the toolbox.
-Since we specified the category, our widgets will be placed in that category - so far we only have one widget.</p>
+<p>We run the <code class="docutils literal notranslate"><span class="pre">orange-canvas</span></code> command, after we should see this in the toolbox.
+Since we specified the category, our widgets will be placed in that category - so far we only have one widget. The first
+widget in the category should be shown now.</p>
 <blockquote>
-<div><img alt="This icon will be used with this widget." class="align-center" src="_images/ourCategory.png" />
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/category-documentation.png" />
 </div></blockquote>
 <p>If you are new to Orange, you need to click on the widget and it will appear on the orange canvas, so we can start
-creating workflows with it.</p>
+creating workflows with it. Now we see, that we declared Inputs and Outputs correctly because widget only has gray dots
+on the side - we can only connect to the Output.</p>
 <blockquote>
 <div><img alt="This icon will be used with this widget." class="align-center" src="_images/widgetOnTheCanvas.png" />
 </div></blockquote>
 <p>Also, don’t forget to check out, where is the location of other meta data information that we defined.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><cite>Just go to the widget icon in the tool box and place cursor on it</cite></p>
+<p>💡 <cite>Just go to the widget icon in the tool box and place cursor on it</cite></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Do you find input, output declaration? And in the bottom left corner name and description?</p>
+<p>📌 Do you find input, output declaration? And in the bottom left corner name and description?</p>
 </div>
 </section>
 <section id="declaring-inputs-and-outputs">
@@ -364,7 +370,7 @@ We also add <cite>self.image</cite> as it will be used for storing the image lat
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <dl>
-<dt>Before running, make sure you add this to the bottom of the code.</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<dt>⚠️ Before running, make sure you add this to the bottom of the code.</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>  <span class="c1"># since Orange 3.20.0</span>
     <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">uploadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -375,8 +381,8 @@ We also add <cite>self.image</cite> as it will be used for storing the image lat
 <p>Now run the file and you should see something similar to this:</p>
 <img alt="Box for uploading file." class="align-center" src="_images/fileUpload1stStep.png" />
 </section>
-<section id="upload-file-from-your-file-system">
-<h2>Upload file from your file system<a class="headerlink" href="#upload-file-from-your-file-system" title="Link to this heading"></a></h2>
+<section id="upload-image-from-your-file-system">
+<h2>Upload image from your file system<a class="headerlink" href="#upload-image-from-your-file-system" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">browse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Open File&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Image Files (*.gif *.jpg *.jpeg *.png *.svg);;All Files (*)&#39;</span>
@@ -426,8 +432,8 @@ We also add <cite>self.image</cite> as it will be used for storing the image lat
 <li><p>The processed image array is sent as output through <cite>self.Outputs.image.send(img)</cite>.</p></li>
 <li><p>Finally, the widget is closed, concluding the file upload process.</p></li>
 </ul>
-<p>So when we run the <cite>orange-canvas</cite> command and pick our widget, we should see this
-message when uploading a file.</p>
+<p>This is the window where we check if we selected the right file - it shows file path. When we check and we are sure, the
+right file is being uploaded we click Yes - which is already highlighted since we set it as a default button.</p>
 <img alt="File confirmation popUp window" class="align-center" src="_images/uploadFileConfirmation.png" />
 </section>
 </section>
@@ -438,7 +444,7 @@ to proceed with this tutorial and create another widget with me.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="secondWidget.html"><span class="doc">Show File Widget</span></a></p></li>
+<li><p><a class="reference internal" href="secondWidget.html"><span class="doc">Image Preview Widget</span></a></p></li>
 </ul>
 </div>
 </section>
@@ -449,7 +455,7 @@ to proceed with this tutorial and create another widget with me.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="introductionToWidgets.html" class="btn btn-neutral float-left" title="Orange Widgets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="secondWidget.html" class="btn btn-neutral float-right" title="Show File Widget" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="secondWidget.html" class="btn btn-neutral float-right" title="Image Preview Widget" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

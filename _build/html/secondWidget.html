@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Show File Widget &mdash; Documentation for developing your first widgets! February 2024 documentation</title>
+  <title>Image Preview Widget &mdash; Documentation for developing your first widgets! February 2024 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="File upload Widget" href="firstWidget.html" /> 
+    <link rel="prev" title="Image Upload Widget" href="firstWidget.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,8 +48,32 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aboutOrange.html">About Orange</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introductionToWidgets.html">Orange Widgets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="firstWidget.html">File upload Widget</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Show File Widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firstWidget.html">Image Upload Widget</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Image Preview Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-icon">Widget icon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libraries-used-in-this-widget">Libraries used in this widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#widget-attributes">Widget Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes-explained-popravljeno-je-do-tukaj">Attributes Explained - popravljeno je do tukaj</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#registration-with-orange">Registration with Orange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declaring-inputs-and-outputs">Declaring Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-settings">Widget Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes-for-information-warning-and-error">Classes for Information, Warning and Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-initialization">Widget Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-file-from-your-file-system">Upload file from your file system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#explanation">Explanation:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#file-confirmation">File confirmation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Explanation:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -66,7 +90,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Show File Widget</li>
+      <li class="breadcrumb-item active">Image Preview Widget</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/secondWidget.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -76,15 +100,265 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="show-file-widget">
-<h1>Show File Widget<a class="headerlink" href="#show-file-widget" title="Link to this heading"></a></h1>
+  <section id="image-preview-widget">
+<h1>Image Preview Widget<a class="headerlink" href="#image-preview-widget" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Since we already have a widget that uploads an image, why don’t we create a widget, that will show the image we just
+uploaded.</p>
+</section>
+<section id="widget-icon">
+<h2>Widget icon<a class="headerlink" href="#widget-icon" title="Link to this heading"></a></h2>
+<blockquote>
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/showImage.jpg" />
+</div></blockquote>
+<p>We will use this icon to represent our Widget in the Orange Canvas.</p>
+</section>
+<section id="libraries-used-in-this-widget">
+<h2>Libraries used in this widget<a class="headerlink" href="#libraries-used-in-this-widget" title="Link to this heading"></a></h2>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets</span> <span class="kn">import</span> <span class="n">gui</span>
+<span class="kn">from</span> <span class="nn">orangewidget.widget</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets.settings</span> <span class="kn">import</span> <span class="n">Setting</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets.widget</span> <span class="kn">import</span> <span class="n">OWWidget</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">Msg</span>
+<span class="kn">from</span> <span class="nn">AnyQt.QtWidgets</span> <span class="kn">import</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QFileDialog</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">QPixmap</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you are wondering why we used libraries listed above, please check out the explanation here: <a class="reference internal" href="firstWidget.html"><span class="doc">Image Upload Widget</span></a> .</p>
+</section>
+<section id="metadata">
+<span id="metadata-section"></span><h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading"></a></h2>
+<p>When defining a new Orange widget, the metadata provides information. This section outlines key metadata attributes.</p>
+<section id="widget-attributes">
+<h3>Widget Attributes<a class="headerlink" href="#widget-attributes" title="Link to this heading"></a></h3>
+<p>This is the code you will place inside your <code class="docutils literal notranslate"><span class="pre">ShowImage(OWWidget)</span></code> class, that inherits from OWWidget.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ShowImage</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Image Preview&quot;</span>
+     <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Preview uploaded image&quot;</span>
+     <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;icons/showImage.jpg&quot;</span>
+     <span class="n">priority</span> <span class="o">=</span> <span class="mi">110</span>
+     <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
+     <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Example - documentation&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>📌  We have priority set to 110 because we want to place this widget in the second position in our category.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>⚠️ Icons specified in the <cite>icon</cite> attribute should be located in the correct path relative to the module where the widget is defined.</p>
+</div>
+</section>
+<section id="attributes-explained-popravljeno-je-do-tukaj">
+<h3>Attributes Explained - popravljeno je do tukaj<a class="headerlink" href="#attributes-explained-popravljeno-je-do-tukaj" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Name Attribute</strong></p></li>
+</ul>
+<p>The <cite>name</cite> attribute represents the display name of the widget as it appears within the Orange3 canvas. Choose a name that describes the widget’s functionality.</p>
+<ul class="simple">
+<li><p><strong>Description Attribute</strong></p></li>
+</ul>
+<p>The <cite>description</cite> attribute provides a brief and clear description of what the widget does.</p>
+<ul class="simple">
+<li><p><strong>Icon Attribute</strong></p></li>
+</ul>
+<p>The <cite>icon</cite> attribute specifies the path to the image file used as the widget’s icon. Icons contribute to the visual identification of the widget in the toolbox.</p>
+<ul class="simple">
+<li><p><strong>Priority Attribute</strong></p></li>
+</ul>
+<p>The <cite>priority</cite> attribute determines the order in which the widget appears within its assigned category in the Orange3 toolbox.</p>
+<ul class="simple">
+<li><p><strong>Keywords Attribute</strong></p></li>
+</ul>
+<p>The <cite>keywords</cite> attribute consists of keywords that serve as quick review of the functionality.
+TODO: Sem izhajala iz tega, da recimo, izberemo res 5 kljucnih besed, ki opisejo kaj widget dela</p>
+<ul class="simple">
+<li><p><strong>Category Attribute</strong></p></li>
+</ul>
+<p>The <cite>category</cite> attribute classifies the widget into a specific category within the toolbox.</p>
+</section>
+</section>
+<section id="registration-with-orange">
+<h2>Registration with Orange<a class="headerlink" href="#registration-with-orange" title="Link to this heading"></a></h2>
+<p>We run the <code class="docutils literal notranslate"><span class="pre">orange-canvas</span></code> command, after we should see this in the toolbox.
+Since we specified the category, our widgets will be placed in that category - so far we only have one widget. The first
+widget in the category should be shown now.</p>
+<blockquote>
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/category-documentation.png" />
+</div></blockquote>
+<p>If you are new to Orange, you need to click on the widget and it will appear on the orange canvas, so we can start
+creating workflows with it. Now we see, that we declared Inputs and Outputs correctly because widget only has gray dots
+on the side - we can only connect to the Output.</p>
+<blockquote>
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/widgetOnTheCanvas.png" />
+</div></blockquote>
+<p>Also, don’t forget to check out, where is the location of other meta data information that we defined.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>💡 <cite>Just go to the widget icon in the tool box and place cursor on it</cite></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do you find input, output declaration? And in the bottom left corner name and description?</p>
+</div>
+</section>
+<section id="declaring-inputs-and-outputs">
+<h2>Declaring Inputs and Outputs<a class="headerlink" href="#declaring-inputs-and-outputs" title="Link to this heading"></a></h2>
+<p>After defining metadata, the next step is to declare Inputs and Outputs for the widget.
+This widget will be the first in the workflow, so it won’t receive any input.
+TODO: Ker če zelis sliko prikazat/nekaj delati z njo jo je treba najprej nalozit
+Therefore, we focus on declaring the Output.
+In the following code snippet, we define an Output named “image,” that will produce NumPy arrays as an output.
+This output is set as the default, this is important if we have multiple outputs.
+TODO: Ali je to pravilna razlaga? Ker ni nikjer napisano.
+The widget also has control over the summary. If the <cite>auto_summary</cite> attribute were set to True, Orange would automatically generate a summary.
+TODO: Ta auto_summary sem dodala, ker je meni metalo ven errorje, ce tega ni bilo definiranega.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Outputs</span><span class="p">:</span>
+     <span class="n">image</span> <span class="o">=</span> <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="widget-settings">
+<span id="id1"></span><h2>Widget Settings<a class="headerlink" href="#widget-settings" title="Link to this heading"></a></h2>
+<p>Tukaj bi potrebovala razlago, zakaj te elemente definiramo, ker ni nikjer razlozeno, samo uporabi se.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">proportion</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">commitOnChange</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">want_main_area</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">buttons_area_orientation</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</section>
+<section id="classes-for-information-warning-and-error">
+<h2>Classes for Information, Warning and Error<a class="headerlink" href="#classes-for-information-warning-and-error" title="Link to this heading"></a></h2>
+<p>Base widget has already implemented different classes that help us warn users.
+You can use them like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Information</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Information</span><span class="p">):</span>
+    <span class="n">no_file_selected</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file selected&quot;</span><span class="p">)</span>
+    <span class="n">no_file_saved</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file saved&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Warning</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Warning</span><span class="p">):</span>
+    <span class="n">file_too_big</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;File too big&quot;</span><span class="p">)</span>
+    <span class="n">file_upload</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;Read error:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Error</span><span class="p">):</span>
+    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file found&quot;</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;This is an error message&quot;</span><span class="p">)</span>
+    <span class="n">unknown</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;Read error:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="widget-initialization">
+<h2>Widget Initialization<a class="headerlink" href="#widget-initialization" title="Link to this heading"></a></h2>
+<p><cite>__init__</cite> method in Python is used to initialize objects of a class - constructor.
+The task is to assign values, when an object of the class is created.
+We also add <cite>self.image</cite> as it will be used for storing the image later.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>In the <cite>__init__</cite> method we have layout definition, to which we add buttons.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">load_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Load File&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">load_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browse_file</span><span class="p">)</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_button</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s just check, what we have so far.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<dl>
+<dt>Before running, make sure you add this to the bottom of the code.</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>  <span class="c1"># since Orange 3.20.0</span>
+    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">uploadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<p>Now run the file and you should see something similar to this:</p>
+<img alt="Box for uploading file." class="align-center" src="_images/fileUpload1stStep.png" />
+</section>
+<section id="upload-file-from-your-file-system">
+<h2>Upload file from your file system<a class="headerlink" href="#upload-file-from-your-file-system" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">browse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Open File&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Image Files (*.gif *.jpg *.jpeg *.png *.svg);;All Files (*)&#39;</span>
+<span class="p">)</span>
+<span class="c1"># TODO:Preverjanje ce je datoteka izbrana</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;File Upload&quot;</span><span class="p">)</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Do you want to upload the file? </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">btn1</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span>
+<span class="n">btn2</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">btn1</span> <span class="o">|</span> <span class="n">btn2</span><span class="p">)</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">btn1</span><span class="p">)</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">buttonClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">popup_clicked</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="explanation">
+<h3>Explanation:<a class="headerlink" href="#explanation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The method uses <cite>QFileDialog.getOpenFileName</cite> to prompt the user to select a file. The selected file path is stored in the <cite>self.image</cite> attribute.</p></li>
+<li><p>A message box (<cite>QMessageBox</cite>) is created to confirm whether the user wants to upload the selected file.</p></li>
+<li><p>The message box displays the selected file path in the message text.</p></li>
+<li><p>Two buttons, ‘Yes’ and ‘No’, are added to the message box, and the default button is set to ‘Yes’.</p></li>
+<li><p>The <cite>buttonClicked</cite> signal of the message box is connected to the <cite>popup_clicked</cite> method (explained below) .</p></li>
+<li><p>The message box is executed, and the result is stored in variable <cite>x</cite>.</p></li>
+</ul>
+<p>How it should look:</p>
+<img alt="Browse file dialog" class="align-center" src="_images/fileUpload2ndStep.png" />
+</section>
+</section>
+<section id="file-confirmation">
+<h2>File confirmation<a class="headerlink" href="#file-confirmation" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">popup_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span><span class="s2">&quot;&amp;Yes&quot;</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;uploadedFile.jpg&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Outputs</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Explanation:<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The method takes a parameter <cite>i</cite>, which represents the clicked button in the confirmation dialog.</p></li>
+<li><p>It checks if the text of the clicked button is “&amp;Yes,” indicating the user’s affirmative response.</p></li>
+<li><p>If the user confirms, the method proceeds to read the selected image file (<cite>self.image</cite>), converts it to a NumPy array, and saves it as ‘uploadedFile.jpg’ using the Pillow library.</p></li>
+<li><p>The processed image array is sent as output through <cite>self.Outputs.image.send(img)</cite>.</p></li>
+<li><p>Finally, the widget is closed, concluding the file upload process.</p></li>
+</ul>
+<p>This is the window where we check if we selected the right file - it shows file path. When we check and we are sure, the
+right file is being uploaded we click Yes - which is already highlighted since we set it as a default button.</p>
+<img alt="File confirmation popUp window" class="align-center" src="_images/uploadFileConfirmation.png" />
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>So here we end the journey of creating the first widget together. If you are interested, I kindly invite you
+to proceed with this tutorial and create another widget with me.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#"><span class="doc">Image Preview Widget</span></a></p></li>
+</ul>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="firstWidget.html" class="btn btn-neutral float-left" title="File upload Widget" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="firstWidget.html" class="btn btn-neutral float-left" title="Image Upload Widget" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
