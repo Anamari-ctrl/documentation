@@ -10,7 +10,8 @@ Welcome to Documentation for developing your first widgets!
    :maxdepth: 2
    :caption: Contents:
 
-   firstWidgetNewVersion
+   firstWidgetNew
+   BasicUIelements
 
 
 

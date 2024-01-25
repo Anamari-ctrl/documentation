@@ -20,6 +20,9 @@ This will be the final outcome.
 Final Implementation
 --------------------
 
+By presenting the complete code upfront, you can get an overview of the structure, components,
+in the widget's final implementation.
+
 .. code-block:: python
 
     import os
@@ -87,7 +90,7 @@ Final Implementation
 
 
     if __name__ == "__main__":
-        from Orange.widgets.utils.widgetpreview import WidgetPreview  # since Orange 3.20.0
+        from Orange.widgets.utils.widgetpreview import WidgetPreview
 
         WidgetPreview(loadFile).run()
 |
@@ -107,12 +110,35 @@ With just these three components, we can already define a functional widget.
         description = "Load image from local directory"
         icon = "icons/uploadImage.png"
 
-.. note::
-    📌 The widget inherits from the OWWidget base class.
+.. tip::
+   💡 The widget inherits from the OWWidget base class.
 
-After running the "orange-canvas" command, the widget is instantly displayed in the toolbox.
+Running the code in IDE
+-----------------------
+Add this at the end of your code.
+
+.. code-block:: python
+
+        if __name__ == "__main__":
+            from Orange.widgets.utils.widgetpreview import WidgetPreview
+            WidgetPreview(loadFile).run()
+
+Now we run the file and see our empty widget displayed:
+
+.. image:: _static/emptyWidgetIDE.png
+        :alt: widget in IDE.
+        :align: center
+
+|
+Running the Widget in Orange
+-----------------------------
+
+After running the ``orange-canvas`` command, the widget is instantly displayed in the toolbox.
 
 .. image:: _static/emptyWidget.png
     :alt: Empty widget in toolbox.
     :align: center
 
+|
+.. seealso::
+   - 🔍 :doc:`BasicUIelements`

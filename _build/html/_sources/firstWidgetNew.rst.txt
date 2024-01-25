@@ -90,7 +90,7 @@ in the widget's final implementation.
 
 
     if __name__ == "__main__":
-        from Orange.widgets.utils.widgetpreview import WidgetPreview  # since Orange 3.20.0
+        from Orange.widgets.utils.widgetpreview import WidgetPreview
 
         WidgetPreview(loadFile).run()
 |
@@ -113,7 +113,27 @@ With just these three components, we can already define a functional widget.
 .. tip::
    💡 The widget inherits from the OWWidget base class.
 
-After running the "orange-canvas" command, the widget is instantly displayed in the toolbox.
+Running the code in IDE
+-----------------------
+Add this at the end of your code.
+
+.. code-block:: python
+
+        if __name__ == "__main__":
+            from Orange.widgets.utils.widgetpreview import WidgetPreview
+            WidgetPreview(loadFile).run()
+
+Now we run the file and see our empty widget displayed:
+
+.. image:: _static/emptyWidgetIDE.png
+        :alt: widget in IDE.
+        :align: center
+
+|
+Running the Widget in Orange
+-----------------------------
+
+After running the ``orange-canvas`` command, the widget is instantly displayed in the toolbox.
 
 .. image:: _static/emptyWidget.png
     :alt: Empty widget in toolbox.
