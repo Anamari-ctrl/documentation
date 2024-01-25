@@ -21,6 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File Upload" href="fileUploadAndBrowsing.html" />
     <link rel="prev" title="Getting Started" href="firstWidgetNew.html" /> 
 </head>
 
@@ -46,7 +47,13 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="firstWidgetNew.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic UI elements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic UI elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-area">Main Area</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#button">Button</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#box">Box</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fileUploadAndBrowsing.html">File Upload</a></li>
 </ul>
 
         </div>
@@ -75,6 +82,63 @@
              
   <section id="basic-ui-elements">
 <h1>Basic UI elements<a class="headerlink" href="#basic-ui-elements" title="Link to this heading"></a></h1>
+<section id="main-area">
+<h2>Main Area<a class="headerlink" href="#main-area" title="Link to this heading"></a></h2>
+<p>Widgets have a divided layout with distinct left and right sections.
+By setting main_area to False, we’re simply disabling one side.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">want_main_area</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<div style="display: flex; justify-content: space-between; text-align: center;">
+   <div style="width: 48%;">
+      <figcaption>Here we see both sides</figcaption>
+      <img src="_static/mainareanotfalse.png" alt="Image 1" style="width: 100%;">
+   </div>
+   <div style="width: 48%;">
+      <figcaption>When we set main area to false</figcaption>
+      <img src="_static/mainareafalse.png" alt="Image 2" style="width: 50%;">
+   </div>
+</div><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="button">
+<h2>Button<a class="headerlink" href="#button" title="Link to this heading"></a></h2>
+<p>First, we need to import the <code class="docutils literal notranslate"><span class="pre">Orange</span> <span class="pre">GUI</span> <span class="pre">library</span></code> because it provides essential components for implementing various elements, such as buttons and widget boxes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Orange.widgets</span> <span class="kn">import</span> <span class="n">gui</span>
+</pre></div>
+</div>
+<p>Now we define the button:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="n">gui</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controlArea</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Load image&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When we run the file, we see this output:</p>
+<img alt="Button added on widget." class="align-center" src="_images/buttonAdded.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="box">
+<h2>Box<a class="headerlink" href="#box" title="Link to this heading"></a></h2>
+<p>Now, we will implement a Widget Box, which is also part of this library. We will add this code directly under the button implementation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">widgetBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controlArea</span><span class="p">,</span> <span class="s2">&quot;Info&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">widgetLabel</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">labelWidth</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Widget box added under button." class="align-center" src="_images/buttonAndWidgetBox.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>🔍 <a class="reference internal" href="fileUploadAndBrowsing.html"><span class="doc">File Upload</span></a></p></li>
+</ul>
+</div>
+</section>
 </section>
 
 
@@ -82,6 +146,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="firstWidgetNew.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fileUploadAndBrowsing.html" class="btn btn-neutral float-right" title="File Upload" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

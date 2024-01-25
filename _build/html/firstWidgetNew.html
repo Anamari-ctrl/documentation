@@ -55,6 +55,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="BasicUIelements.html">Basic UI elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fileUploadAndBrowsing.html">File Upload</a></li>
 </ul>
 
         </div>
@@ -115,7 +116,7 @@ in the widget’s final implementation.</p>
     <span class="k">return</span> <span class="n">PartialSummary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Image of size </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">loadFile</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">LoadFile</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Load image&quot;</span>
     <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Load image from local directory&quot;</span>
     <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;icons/uploadImage.png&quot;</span>
@@ -165,7 +166,7 @@ in the widget’s final implementation.</p>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>
 
-    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">loadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">LoadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -179,7 +180,7 @@ Widget consists of three key meta-data elements: name, description, and icon.
 With just these three components, we can already define a functional widget.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Orange.widgets.widget</span> <span class="kn">import</span> <span class="n">OWWidget</span>
 
-<span class="k">class</span> <span class="nc">uploadFile</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">LoadFile</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Load image&quot;</span>
     <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Load image from local directory&quot;</span>
     <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;icons/uploadImage.png&quot;</span>
@@ -195,7 +196,7 @@ With just these three components, we can already define a functional widget.</p>
 <p>Add this at the end of your code.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>
-    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">loadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">LoadFile</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Now we run the file and see our empty widget displayed:</p>
