@@ -88,3 +88,32 @@ set
 .. code-block:: python
 
     resizing_enabled = False
+
+Result
+======
+
+After we run ``orange-canvas``, we see our final result when we place our widget on the canvas
+and click on it.
+
+.. raw:: html
+
+   <div style="display: flex; justify-content: space-between; text-align: center;">
+      <div style="width: 48%;">
+         <figcaption>Before upload</figcaption>
+         <img src="_static/loadImageBox.png" alt="Image 1" style="width: 100%;">
+      </div>
+      <div style="width: 48%;">
+         <figcaption>After upload</figcaption>
+         <img src="_static/LoadImageBox2.png" alt="Image 2" style="width: 100%;">
+      </div>
+   </div>
+
+|
+
+.. warning::
+   ⚠️ But if you check console from where we opened Orange, we get UserWarning.
+        We need to implement summarize.
+
+
+.. seealso::
+   - 🔍 :doc:`summarize`
