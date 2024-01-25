@@ -42,7 +42,7 @@ in the widget's final implementation.
         return PartialSummary(f"{a.shape[0]}x{a.shape[1]}", f"Image of size {a.shape[0]}x{a.shape[1]}")
 
 
-    class loadFile(OWWidget):
+    class LoadFile(OWWidget):
         name = "Load image"
         description = "Load image from local directory"
         icon = "icons/uploadImage.png"
@@ -92,7 +92,7 @@ in the widget's final implementation.
     if __name__ == "__main__":
         from Orange.widgets.utils.widgetpreview import WidgetPreview
 
-        WidgetPreview(loadFile).run()
+        WidgetPreview(LoadFile).run()
 |
 Creating an Empty Widget
 ------------------------
@@ -105,7 +105,7 @@ With just these three components, we can already define a functional widget.
 
     from Orange.widgets.widget import OWWidget
 
-    class uploadFile(OWWidget):
+    class LoadFile(OWWidget):
         name = "Load image"
         description = "Load image from local directory"
         icon = "icons/uploadImage.png"
@@ -121,7 +121,7 @@ Add this at the end of your code.
 
         if __name__ == "__main__":
             from Orange.widgets.utils.widgetpreview import WidgetPreview
-            WidgetPreview(loadFile).run()
+            WidgetPreview(LoadFile).run()
 
 Now we run the file and see our empty widget displayed:
 
@@ -140,5 +140,6 @@ After running the ``orange-canvas`` command, the widget is instantly displayed i
     :align: center
 
 |
+
 .. seealso::
    - 🔍 :doc:`BasicUIelements`
