@@ -13,6 +13,7 @@ Welcome to Documentation for developing your first widgets!
    firstWidgetNew
    BasicUIelements
    fileUploadAndBrowsing
+   summarize
 
 
 

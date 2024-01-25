@@ -75,7 +75,23 @@
              
   <section id="summarize">
 <h1>Summarize<a class="headerlink" href="#summarize" title="Link to this heading"></a></h1>
-<p>from orangewidget.utils.signals import summarize, PartialSummary</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>⚠️  UserWarning: register ‘summarize’ function for type ndarray.</p>
+</div>
+<p>To correct this warning, we need to implement summarize. First, we import:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orangewidget.utils.signals</span> <span class="kn">import</span> <span class="n">summarize</span><span class="p">,</span> <span class="n">PartialSummary</span>
+</pre></div>
+</div>
+<p>Then we implement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@summarize</span><span class="o">.</span><span class="n">register</span>
+<span class="k">def</span> <span class="nf">summarize_ndarray</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">PartialSummary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Image of size </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When we run <code class="docutils literal notranslate"><span class="pre">orange-canvas</span></code> we see the partial summary under the info box, and
+if we click on it, we get whole summary:</p>
+<img alt="Image size summary." class="align-center" src="_images/summary.png" />
 </section>
 
 
