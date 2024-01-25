@@ -11,12 +11,7 @@ Welcome to Documentation for developing your first widgets!
    :caption: Contents:
 
    introduction
-   aboutOrange
-   introductionToWidgets
-   firstWidget
-   secondWidget
-   secondWidgetUpdates
-   thirdWidget
+
 
 
 

@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Image Preview Widget" href="secondWidget.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="secondWidgetUpdates.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +50,26 @@
 <li class="toctree-l1"><a class="reference internal" href="introductionToWidgets.html">Orange Widgets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="firstWidget.html">Image Load Widget</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secondWidget.html">Image Preview Widget</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Blend Images Widget</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Blend Images Widget</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-icon">Widget icon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libraries-used-in-this-widget">Libraries used in this widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#widget-attributes">Widget Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#registration-with-orange">Registration with Orange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declaring-inputs-and-outputs">Declaring Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-settings">Widget Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes-for-information-warning-and-error">Classes for Information, Warning and Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#widget-initialization">Widget Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imagewidget-class-declaration">ImageWidget class declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-loaded-image-file">Handle loaded image file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#our-first-workflow">Our first workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-your-code">Test Your Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -79,13 +98,224 @@
              
   <section id="blend-images-widget">
 <h1>Blend Images Widget<a class="headerlink" href="#blend-images-widget" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Now it’s time to create our third widget. In this widget, we will get two images on the Input, and we will create a blend.
+The fun part is that we will also implement a slider, which will allow us to change blend proportion.</p>
+</section>
+<section id="widget-icon">
+<h2>Widget icon<a class="headerlink" href="#widget-icon" title="Link to this heading"></a></h2>
+<blockquote>
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/blend.png" />
+</div></blockquote>
+<p>We will use this icon to represent our Widget in the Orange Canvas.</p>
+</section>
+<section id="libraries-used-in-this-widget">
+<h2>Libraries used in this widget<a class="headerlink" href="#libraries-used-in-this-widget" title="Link to this heading"></a></h2>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets</span> <span class="kn">import</span> <span class="n">gui</span>
+<span class="kn">from</span> <span class="nn">orangewidget.widget</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets.settings</span> <span class="kn">import</span> <span class="n">Setting</span>
+<span class="kn">from</span> <span class="nn">Orange.widgets.widget</span> <span class="kn">import</span> <span class="n">OWWidget</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">Msg</span>
+<span class="kn">from</span> <span class="nn">AnyQt.QtWidgets</span> <span class="kn">import</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QFileDialog</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">QPixmap</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you are wondering why we used libraries listed above, please check out the explanation here: <a class="reference internal" href="firstWidget.html"><span class="doc">Image Load Widget</span></a> .</p>
+</section>
+<section id="metadata">
+<span id="metadata-section"></span><h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading"></a></h2>
+<p>When defining a new Orange widget, the metadata provides information. This section outlines key metadata attributes.</p>
+<section id="widget-attributes">
+<h3>Widget Attributes<a class="headerlink" href="#widget-attributes" title="Link to this heading"></a></h3>
+<p>This is the code you will place inside your <code class="docutils literal notranslate"><span class="pre">BlendImages(OWWidget)</span></code> class, that inherits from OWWidget.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BlendImages</span><span class="p">(</span><span class="n">OWWidget</span><span class="p">):</span>
+ <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Image blending&quot;</span>
+ <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Blend uploaded images&quot;</span>
+ <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;icons/blend.png&quot;</span>
+ <span class="n">priority</span> <span class="o">=</span> <span class="mi">120</span>
+ <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
+ <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Example - documentation&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>📌  We have priority set to 120 because we want to place this widget in the second position in our category.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>⚠️ Icons specified in the <cite>icon</cite> attribute should be located in the correct path relative to the module where the widget is defined.</p>
+</div>
+</section>
+</section>
+<section id="registration-with-orange">
+<h2>Registration with Orange<a class="headerlink" href="#registration-with-orange" title="Link to this heading"></a></h2>
+<p>We run the <code class="docutils literal notranslate"><span class="pre">orange-canvas</span></code> command, after we should see this in the toolbox.
+Since we specified the category, our widgets will be placed in that category - so far we have two widgets. The second
+widget in the category should be shown now.</p>
+<blockquote>
+<div><img alt="This is our category." class="align-center" src="_images/category.png" />
+</div></blockquote>
+<p>This widget looks a little different from the first widget. We see dots on both sides - which means we can connect</p>
+<blockquote>
+<div><img alt="This icon will be used with this widget." class="align-center" src="_images/blendImages.png" />
+</div></blockquote>
+</section>
+<section id="declaring-inputs-and-outputs">
+<h2>Declaring Inputs and Outputs<a class="headerlink" href="#declaring-inputs-and-outputs" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">class</span> <span class="nc">Inputs</span><span class="p">:</span>
+    <span class="n">image1</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;image1&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">auto_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">image2</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;image2&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">auto_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Outputs</span><span class="p">:</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">auto_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="widget-settings">
+<span id="id1"></span><h2>Widget Settings<a class="headerlink" href="#widget-settings" title="Link to this heading"></a></h2>
+<p>Tukaj bi potrebovala razlago, zakaj te elemente definiramo, ker ni nikjer razlozeno, samo uporabi se.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">proportion</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">commitOnChange</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">want_main_area</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">buttons_area_orientation</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</section>
+<section id="classes-for-information-warning-and-error">
+<h2>Classes for Information, Warning and Error<a class="headerlink" href="#classes-for-information-warning-and-error" title="Link to this heading"></a></h2>
+<p>Base widget has already implemented different classes that help us warn users.
+You can use them like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Information</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Information</span><span class="p">):</span>
+    <span class="n">no_file_selected</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file selected&quot;</span><span class="p">)</span>
+    <span class="n">no_file_saved</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file saved&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Warning</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Warning</span><span class="p">):</span>
+    <span class="n">file_too_big</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;File too big&quot;</span><span class="p">)</span>
+    <span class="n">file_upload</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;Read error:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="n">OWWidget</span><span class="o">.</span><span class="n">Error</span><span class="p">):</span>
+    <span class="n">missing_file</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;No file found&quot;</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;This is an error message&quot;</span><span class="p">)</span>
+    <span class="n">unknown</span> <span class="o">=</span> <span class="n">Msg</span><span class="p">(</span><span class="s2">&quot;Read error:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="widget-initialization">
+<h2>Widget Initialization<a class="headerlink" href="#widget-initialization" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span> <span class="o">=</span> <span class="n">ImageWidget</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here we create an instance of the ImageWidget class and initializing
+it with a small black image
+(1x1 pixels with three color channels) filled with zeros.
+This serves as an placeholder image for the image_preview widget.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">widgetBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controlArea</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">box</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="imagewidget-class-declaration">
+<h2>ImageWidget class declaration<a class="headerlink" href="#imagewidget-class-declaration" title="Link to this heading"></a></h2>
+<p>ImageWidget class is designed to display images in a Qt-based GUI.
+The class takes a NumPy array as input, converts it to a QImage,
+and displays it within a vertical box layout.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>⚠️ Place this class above Show Image class</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ImageWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_array</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_ui</span><span class="p">()</span>
+
+        <span class="c1"># Set the initial image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_image_array</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_array_to_qimage</span><span class="p">(</span><span class="n">new_image_array</span><span class="p">)</span>
+        <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">numpy_array_to_qimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">bytes_per_line</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">width</span>
+        <span class="n">qimage</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">bytes_per_line</span><span class="p">,</span> <span class="n">QImage</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">qimage</span>
+</pre></div>
+</div>
+</section>
+<section id="handle-loaded-image-file">
+<h2>Handle loaded image file<a class="headerlink" href="#handle-loaded-image-file" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@Inputs</span><span class="o">.</span><span class="n">image</span>
+<span class="k">def</span> <span class="nf">show_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_array</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">update_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The last part of the code is adding image preview to our layout. Now we can run and test the code!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>📌 Decorator <code class="docutils literal notranslate"><span class="pre">&#64;Inputs.image</span></code>: handles incoming image data from the specified input signal</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<dl>
+<dt>⚠️ Before running, make sure you add this to the bottom of the code.</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Orange.widgets.utils.widgetpreview</span> <span class="kn">import</span> <span class="n">WidgetPreview</span>
+
+    <span class="n">WidgetPreview</span><span class="p">(</span><span class="n">ShowImage</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="n">main_window</span> <span class="o">=</span> <span class="n">ShowImage</span><span class="p">()</span>
+    <span class="n">main_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</section>
+<section id="our-first-workflow">
+<h2>Our first workflow<a class="headerlink" href="#our-first-workflow" title="Link to this heading"></a></h2>
+<p>Here we create our first workflow. First we use the file load widget and connect it to
+image preview where we can see the image.</p>
+<img alt="Workflow example." class="align-center" src="_images/workflow1.png" />
+<p>Now the best part, we can finally check how our image preview looks!</p>
+<img alt="Image preview window." class="align-center" src="_images/imagePreview.png" />
+</section>
+<section id="test-your-code">
+<h2>Test Your Code<a class="headerlink" href="#test-your-code" title="Link to this heading"></a></h2>
+<p>Load image and connect it to your Image Preview widget. Leave the widgets connected and again click on load image,
+and pick different image. Check in your Image Preview widget if image was sucessfully loaded and changed. If yes,
+bravo, we followed good coding practices!</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>We are now ending the first half of the tutorial. I must warn you, the next two widgets are a
+bit more complex, but actually I had a lot more fun when I was creating them.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#"><span class="doc">Blend Images Widget</span></a></p></li>
+</ul>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="secondWidget.html" class="btn btn-neutral float-left" title="Image Preview Widget" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="secondWidgetUpdates.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

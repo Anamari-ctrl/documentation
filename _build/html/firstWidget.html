@@ -20,9 +20,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Image Preview Widget" href="secondWidget.html" />
-    <link rel="prev" title="Orange Widgets" href="introductionToWidgets.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,37 +43,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aboutOrange.html">About Orange</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introductionToWidgets.html">Orange Widgets</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Image Load Widget</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#widget-icon">Widget icon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#libraries-used-in-this-widget">Libraries used in this widget</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#widget-attributes">Widget Attributes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#attributes-explained">Attributes Explained</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#registration-with-orange">Registration with Orange</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#declaring-inputs-and-outputs">Declaring Inputs and Outputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#widget-settings">Widget Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#classes-for-information-warning-and-error">Classes for Information, Warning and Error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#widget-initialization">Widget Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#upload-image-from-your-file-system">Upload image from your file system</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#explanation">Explanation:</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#file-confirmation">File confirmation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Explanation:</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="secondWidget.html">Image Preview Widget</a></li>
-<li class="toctree-l1"><a class="reference internal" href="thirdWidget.html">Blend Images Widget</a></li>
 </ul>
 
         </div>
@@ -104,6 +73,26 @@
              
   <section id="image-load-widget">
 <h1>Image Load Widget<a class="headerlink" href="#image-load-widget" title="Link to this heading"></a></h1>
+<section id="popravki">
+<h2>Popravki<a class="headerlink" href="#popravki" title="Link to this heading"></a></h2>
+<p>Dodaj tukaj preview kaj bomo sploh naredil. Kaj bodo naredil, kako bo izgledalo, kaj se bo dalo naredit. In dodana
+celotna koda widgeta, da se vidi da to ni kej takega.
+1. naredi prazen widget, from orange.widgets import owwidget in potem ne narediš widget, ki bi ime le name description and icon.
+In potem ko pozenes, se to ze vidi tam.</p>
+<p>In potem dodamo tipko, recemo to je v gui.push butoon, in dobimo button, ki ne dela nic.</p>
+<p>from anyqt.qtwidgets ne iz pyqt5</p>
+<p>keywords naj ne bodo ze takoj na zacetku, in category</p>
+<p>preden je output in input je sploh funkcionalnost, ki naredi nekaj</p>
+<p>waint_main_area = False - ker widget ima lahko levi in desni del</p>
+<p>classes for information, warning and error: naj bo to dodano, ko bo mozno</p>
+<p>__init__ ne razlagas, samo gumb dodamo, in gre na razlago browse file
+pri load image dodaj spodaj da ti tam pokaze kaj si nalozil</p>
+<p>self.image = None ne rabis, naj ne bo atribut razreda
+potrebno bi blo da si image zapomnis -&gt; dodas setting, saj se to shrani, ampak je treba preverit preden nalagamo, ce obstaja z os path</p>
+<p>os path split in vzames zadnji element</p>
+<p>Definiranje seznama vsega, kar je v widgetih input, output, summarize, setting, progress bars, zato da bodo primeri temu prilagojeni,
+da se demonstrira cemvec zadev, ki se jih lahko naredi</p>
+</section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>Let’s start! Follow along, and at the end of the page, you will be a proud owner of the image upload widget.</p>
@@ -195,16 +184,17 @@
 </pre></div>
 </div>
 </li>
-<li><p><a class="reference external" href="https://pypi.org/project/PyQt5/">PyQt5</a></p>
-<blockquote>
-<div><ul class="simple">
+<li><dl>
+<dt><a class="reference external" href="https://pypi.org/project/PyQt5/">PyQt5</a></dt><dd><ul class="simple">
+<li><p>odstrani, ker se ne sme uporabljat</p></li>
 <li><p><em>Usage:</em> Imports PyQt5 widgets for file dialogs and buttons.</p></li>
 <li><p><em>Why:</em> Used for creating file dialogs and buttons in the widget’s graphical user interface.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QPushButton</span>
 </pre></div>
 </div>
-</div></blockquote>
+</dd>
+</dl>
 </li>
 <li><p><a class="reference external" href="https://pillow.readthedocs.io/en/stable/">PIL</a></p>
 <blockquote>
@@ -453,10 +443,7 @@ to proceed with this tutorial and create another widget with me.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="introductionToWidgets.html" class="btn btn-neutral float-left" title="Orange Widgets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="secondWidget.html" class="btn btn-neutral float-right" title="Image Preview Widget" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

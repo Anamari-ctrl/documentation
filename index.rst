@@ -10,13 +10,8 @@ Welcome to Documentation for developing your first widgets!
    :maxdepth: 2
    :caption: Contents:
 
-   introduction
-   aboutOrange
-   introductionToWidgets
-   firstWidget
-   secondWidget
-   secondWidgetUpdates
-   thirdWidget
+   firstWidgetNewVersion
+
 
 
 

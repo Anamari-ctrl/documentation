@@ -2,6 +2,37 @@
 Image Load Widget
 ========================
 
+Popravki
+---------
+
+Dodaj tukaj preview kaj bomo sploh naredil. Kaj bodo naredil, kako bo izgledalo, kaj se bo dalo naredit. In dodana
+celotna koda widgeta, da se vidi da to ni kej takega.
+1. naredi prazen widget, from orange.widgets import owwidget in potem ne narediš widget, ki bi ime le name description and icon.
+In potem ko pozenes, se to ze vidi tam.
+
+In potem dodamo tipko, recemo to je v gui.push butoon, in dobimo button, ki ne dela nic.
+
+from anyqt.qtwidgets ne iz pyqt5
+
+keywords naj ne bodo ze takoj na zacetku, in category
+
+preden je output in input je sploh funkcionalnost, ki naredi nekaj
+
+waint_main_area = False - ker widget ima lahko levi in desni del
+
+classes for information, warning and error: naj bo to dodano, ko bo mozno
+
+__init__ ne razlagas, samo gumb dodamo, in gre na razlago browse file
+pri load image dodaj spodaj da ti tam pokaze kaj si nalozil
+
+self.image = None ne rabis, naj ne bo atribut razreda
+potrebno bi blo da si image zapomnis -> dodas setting, saj se to shrani, ampak je treba preverit preden nalagamo, ce obstaja z os path
+
+os path split in vzames zadnji element
+
+Definiranje seznama vsega, kar je v widgetih input, output, summarize, setting, progress bars, zato da bodo primeri temu prilagojeni,
+da se demonstrira cemvec zadev, ki se jih lahko naredi
+
 Introduction
 ------------
 Let's start! Follow along, and at the end of the page, you will be a proud owner of the image upload widget.
@@ -87,7 +118,7 @@ Libraries used in this widget
       from AnyQt.QtWidgets import QMessageBox, QGridLayout
 
 - `PyQt5 <https://pypi.org/project/PyQt5/>`_
-
+   - odstrani, ker se ne sme uporabljat
    - *Usage:* Imports PyQt5 widgets for file dialogs and buttons.
    - *Why:* Used for creating file dialogs and buttons in the widget's graphical user interface.
 

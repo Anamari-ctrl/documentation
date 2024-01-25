@@ -237,6 +237,13 @@ Now the best part, we can finally check how our image preview looks!
     :alt: Image preview window.
     :align: center
 
+Test Your Code
+--------------
+
+Load image and connect it to your Image Preview widget. Leave the widgets connected and again click on load image,
+and pick different image. Check in your Image Preview widget if image was sucessfully loaded and changed. If yes,
+bravo, we followed good coding practices!
+
 
 Conclusion
 ----------
